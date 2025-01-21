@@ -20,7 +20,7 @@ public class MyGlobalExceptionHandler {
             String message = err.getDefaultMessage();
             response.put(fieldName, message);
         });
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        return ResponseEntity.status(e.getStatusCode()).body(response);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)

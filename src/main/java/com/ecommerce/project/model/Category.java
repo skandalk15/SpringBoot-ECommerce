@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//<------------------------------------ Represents Category at Database Layer ----------------------------->
 @Entity(name = "categories")
 @Data
 @NoArgsConstructor
@@ -20,6 +21,6 @@ public class Category {
     private Long categoryId;
 
     @NotBlank
-    @Size(min = 5, message = "Category name must contain atleast 5 characters")
+    @Size(min = 5, message = "Category name must contain atleast 5 characters!!!")
     private String categoryName;
 }
