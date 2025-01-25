@@ -1,6 +1,7 @@
 package com.ecommerce.project.exceptions;
 
 import com.ecommerce.project.payload.APIResponse;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -23,6 +24,17 @@ public class MyGlobalExceptionHandler {
             response.put(fieldName, message);
         });
         return ResponseEntity.status(e.getStatusCode()).body(response);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Map<String, String>> myConstraintViolationException(ConstraintViolationException e){
+        Map<String, String> response = new HashMap<>();
+        e.getConstraintViolations().forEach((err) -> {
+            String fieldName = err.getPropertyPath().toString();
+            String message = err.getMessageTemplate();
+            response.put(fieldName, message);
+        });
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
